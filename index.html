@@ -60,7 +60,6 @@
     .no {
       background-color: #dcd6f7;
       color: #4a235a;
-      position: relative; /* starts centered */
     }
 
     .button-container {
@@ -145,10 +144,8 @@ function forgive() {
 function moveButton() {
   const btn = document.getElementById("noBtn");
 
-  // switch to absolute after first hover
-  if (btn.style.position !== "absolute") {
-    btn.style.position = "absolute";
-  }
+  // Break it out of layout completely
+  btn.style.position = "fixed";
 
   const maxX = window.innerWidth - btn.offsetWidth;
   const maxY = window.innerHeight - btn.offsetHeight;
