@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>I’m Sorry ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffd6e0, #ffe6f0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    p {
+      font-size: 16px;
+      color: #444;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background-color: #ccc;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>I’m really sorry 😔</h1>
+  <p>
+    I know I messed up… and I hate that I hurt you.  
+    You mean too much to me for me to just ignore this.
+  </p>
+
+  <button onclick="showNext()">Click if you're still mad at me 💔</button>
+
+  <div id="next" class="hidden">
+    <p>I promise I’ll do better. Can you forgive me? 🥺</p>
+    <button class="yes" onclick="forgive()">Yes ❤️</button>
+    <button class="no" onmouseover="moveButton(this)">No 🙄</button>
+  </div>
+</div>
+
+<script>
+  function showNext() {
+    document.getElementById("next").classList.remove("hidden");
+  }
+
+  function forgive() {
+    document.body.innerHTML = `
+      <h1 style="color:#ff4d6d;">YAYYY ❤️</h1>
+      <p>I love you so much. Thank you for forgiving me 🥹</p>
+    `;
+  }
+
+  function moveButton(btn) {
+    btn.style.position = "absolute";
+    btn.style.top = Math.random() * window.innerHeight + "px";
+    btn.style.left = Math.random() * window.innerWidth + "px";
+  }
+</script>
+
+</body>
+</html>
