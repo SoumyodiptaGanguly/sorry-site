@@ -18,7 +18,7 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
       padding: 40px;
       border-radius: 25px;
@@ -60,7 +60,7 @@
     .no {
       background-color: #dcd6f7;
       color: #4a235a;
-      position: relative;
+      position: absolute;
     }
 
     .hidden {
@@ -71,7 +71,12 @@
 
 <body>
 
-<div class="card">
+<!-- 🎵 Local Audio -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/14/audio_5c6d5fbb0c.mp3" type="audio/mp3">
+</audio>
+
+<div class="card" id="card">
   <h1>I’m really sorry 😔</h1>
   
   <p>
@@ -90,7 +95,9 @@
     </p>
 
     <button class="yes" onclick="forgive()">Yes 💜</button>
-    <button class="no" onmouseover="moveButton(this)" onclick="moveButton(this)">
+    <button class="no" id="noBtn"
+      onmouseover="moveButton()" 
+      onclick="moveButton()">
       No 🙄
     </button>
   </div>
@@ -98,22 +105,13 @@
 
 <script>
 function handleClick() {
-  showNext();
+  document.getElementById("next").classList.remove("hidden");
   playMusic();
 }
 
-function showNext() {
-  document.getElementById("next").classList.remove("hidden");
-}
-
 function playMusic() {
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://www.youtube.com/embed/VIDEO_ID?autoplay=1&loop=1&playlist=R5CxtjmrIE4&list=RDR5CxtjmrIE4&start_radio=1";
-  iframe.width = "0";
-  iframe.height = "0";
-  iframe.style.display = "none";
-  iframe.allow = "autoplay";
-  document.body.appendChild(iframe);
+  const music = document.getElementById("bgMusic");
+  music.play().catch(() => {});
 }
 
 function forgive() {
@@ -133,10 +131,21 @@ function forgive() {
   `;
 }
 
-function moveButton(btn) {
-  btn.style.position = "absolute";
-  btn.style.top = Math.random() * window.innerHeight + "px";
-  btn.style.left = Math.random() * window.innerWidth + "px";
+function moveButton() {
+  const btn = document.getElementById("noBtn");
+  const card = document.getElementById("card");
+
+  const cardRect = card.getBoundingClientRect();
+  const btnRect = btn.getBoundingClientRect();
+
+  const maxX = cardRect.width - btnRect.width - 20;
+  const maxY = cardRect.height - btnRect.height - 20;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
 }
 
 // 💜 Floating hearts
