@@ -65,7 +65,7 @@
     You mean too much to me for me to just ignore this.
   </p>
 
-  <button onclick="showNext()">Click if you're still mad at me 💔</button>
+  <button onclick="handleClick()">Click if you're still mad at me 💔</button>
 
   <div id="next" class="hidden">
     <p>I promise I’ll do better. Can you forgive me? 🥺</p>
@@ -75,9 +75,36 @@
 </div>
 
 <script>
-  function showNext() {
-    document.getElementById("next").classList.remove("hidden");
-  }
+function handleClick() {
+  showNext();
+  playMusic();
+}
+
+function showNext() {
+  document.getElementById("next").classList.remove("hidden");
+}
+
+function playMusic() {
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://www.youtube.com/embed/VIDEO_ID?autoplay=1&loop=1&playlist=R5CxtjmrIE4&list=RDR5CxtjmrIE4&start_radio=1";
+  iframe.width = "0";
+  iframe.height = "0";
+  iframe.style.display = "none";
+  document.body.appendChild(iframe);
+}
+
+function forgive() {
+  document.body.innerHTML = `
+    <h1 style="color:#ff4d6d;">YAYYY ❤️</h1>
+    <p>I love you so much. Thank you for forgiving me 🥹</p>
+  `;
+}
+
+function moveButton(btn) {
+  btn.style.position = "absolute";
+  btn.style.top = Math.random() * window.innerHeight + "px";
+  btn.style.left = Math.random() * window.innerWidth + "px";
+}
 
   function forgive() {
     document.body.innerHTML = `
