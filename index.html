@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>I’m Sorry ❤️</title>
+
   <style>
     body {
       margin: 0;
@@ -13,6 +14,7 @@
       align-items: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
 
     .card {
@@ -21,6 +23,8 @@
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       max-width: 400px;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -28,8 +32,9 @@
     }
 
     p {
-      font-size: 16px;
       color: #444;
+      font-size: 16px;
+      line-height: 1.5;
     }
 
     button {
@@ -42,6 +47,11 @@
       transition: 0.3s;
     }
 
+    .main-btn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
     .yes {
       background-color: #ff4d6d;
       color: white;
@@ -49,6 +59,7 @@
 
     .no {
       background-color: #ccc;
+      position: relative;
     }
 
     .hidden {
@@ -56,21 +67,36 @@
     }
   </style>
 </head>
+
 <body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
 
 <div class="card">
   <h1>I’m really sorry 😔</h1>
+  
   <p>
     I know I messed up… and I hate that I hurt you.  
-    You mean too much to me for me to just ignore this.
+    You mean too much to me for me to act carelessly.
   </p>
 
-  <button onclick="handleClick()">Click if you're still mad at me 💔</button>
+  <button class="main-btn" onclick="handleClick()">
+    Click if you're still mad at me 💔
+  </button>
 
   <div id="next" class="hidden">
-    <p>I promise I’ll do better. Can you forgive me? 🥺</p>
+    <p>
+      I promise I’ll do better.  
+      Can you forgive me? 🥺
+    </p>
+
     <button class="yes" onclick="forgive()">Yes ❤️</button>
-    <button class="no" onmouseover="moveButton(this)">No 🙄</button>
+    <button class="no" onmouseover="moveButton(this)" onclick="moveButton(this)">
+      No 🙄
+    </button>
   </div>
 </div>
 
@@ -85,18 +111,35 @@ function showNext() {
 }
 
 function playMusic() {
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://www.youtube.com/embed/VIDEO_ID?autoplay=1&loop=1&playlist=R5CxtjmrIE4&list=RDR5CxtjmrIE4&start_radio=1";
-  iframe.width = "0";
-  iframe.height = "0";
-  iframe.style.display = "none";
-  document.body.appendChild(iframe);
+  const music = document.getElementById("bgMusic");
+  music.volume = 0;
+  music.play();
+
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 1) {
+      vol += 0.05;
+      music.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
 }
 
 function forgive() {
   document.body.innerHTML = `
-    <h1 style="color:#ff4d6d;">YAYYY ❤️</h1>
-    <p>I love you so much. Thank you for forgiving me 🥹</p>
+    <div style="
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      flex-direction:column;
+      font-family:Segoe UI;
+      background: linear-gradient(to bottom right, #ffd6e0, #ffe6f0);
+    ">
+      <h1 style="color:#ff4d6d;">YAYYY ❤️</h1>
+      <p style="font-size:18px;">I love you so much. Thank you for forgiving me 🥹</p>
+    </div>
   `;
 }
 
@@ -106,18 +149,29 @@ function moveButton(btn) {
   btn.style.left = Math.random() * window.innerWidth + "px";
 }
 
-  function forgive() {
-    document.body.innerHTML = `
-      <h1 style="color:#ff4d6d;">YAYYY ❤️</h1>
-      <p>I love you so much. Thank you for forgiving me 🥹</p>
-    `;
-  }
+// 💕 Floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.innerHTML = "❤️";
+  heart.style.position = "fixed";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.bottom = "0";
+  heart.style.fontSize = "20px";
+  heart.style.animation = "float 3s linear";
+  document.body.appendChild(heart);
 
-  function moveButton(btn) {
-    btn.style.position = "absolute";
-    btn.style.top = Math.random() * window.innerHeight + "px";
-    btn.style.left = Math.random() * window.innerWidth + "px";
+  setTimeout(() => heart.remove(), 3000);
+}, 300);
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes float {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
   }
+}`;
+document.head.appendChild(style);
 </script>
 
 </body>
